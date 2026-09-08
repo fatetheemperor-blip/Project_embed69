@@ -219,6 +219,28 @@ void create_screen_timer_page() {
                             lv_textarea_set_one_line(obj, true);
                             lv_textarea_set_password_mode(obj, false);
                         }
+                        {
+                            // mainbt
+                            lv_obj_t *obj = lv_btn_create(parent_obj);
+                            objects.mainbt = obj;
+                            lv_obj_set_pos(obj, 267, -13);
+                            lv_obj_set_size(obj, 31, 31);
+                            lv_obj_set_style_bg_color(obj, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+                            lv_obj_set_style_bg_opa(obj, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+                            {
+                                lv_obj_t *parent_obj = obj;
+                                {
+                                    lv_obj_t *obj = lv_label_create(parent_obj);
+                                    objects.obj0 = obj;
+                                    lv_obj_set_pos(obj, 0, 0);
+                                    lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+                                    lv_obj_set_style_align(obj, LV_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+                                    lv_obj_set_style_text_font(obj, &ui_font_robot_fonts24, LV_PART_MAIN | LV_STATE_DEFAULT);
+                                    lv_obj_set_style_text_color(obj, lv_color_hex(0xd31d1d), LV_PART_MAIN | LV_STATE_DEFAULT);
+                                    lv_label_set_text_static(obj, "X");
+                                }
+                            }
+                        }
                     }
                 }
             }

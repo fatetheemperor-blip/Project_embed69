@@ -31,6 +31,8 @@ typedef struct _objects_t {
     lv_obj_t *timer_numval;
     lv_obj_t *hour_display;
     lv_obj_t *minute_display;
+    lv_obj_t *mainbt;
+    lv_obj_t *obj0;
 } objects_t;
 
 extern objects_t objects;

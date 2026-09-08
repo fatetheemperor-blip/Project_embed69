@@ -41,6 +41,10 @@ void event_handler(lv_event_t*e)
             }
         }
     }
+    else if (obj == objects.mainbt && code == LV_EVENT_CLICKED)
+    {
+        lv_scr_load(objects.main);
+    }
     else if (obj == objects.timerbt && code == LV_EVENT_CLICKED)
     {
         input_step = 0;
@@ -48,6 +52,16 @@ void event_handler(lv_event_t*e)
         lv_textarea_set_text(objects.hour_display, "");
         lv_textarea_set_text(objects.minute_display, "");
         lv_scr_load(objects.timer_page);
+    }
+    else if(obj == objects.hour_display && code == LV_EVENT_CLICKED)
+    {
+        current_ta = objects.hour_display;
+        input_step = 0;
+    }
+    else if(obj == objects.minute_display && code == LV_EVENT_CLICKED)
+    {
+        current_ta = objects.minute_display;
+        input_step = 1;
     }
     else if (obj == objects.timer_numval)
     {
@@ -74,28 +88,19 @@ void event_handler(lv_event_t*e)
             }
             else if (strcmp(txt, "Enter") == 0)
             {
-                if (input_step == 0)
-                {
-                    input_step = 1;
-                    current_ta = objects.minute_display;
-                    lv_textarea_set_text(current_ta, "");
-                }
-                else if (input_step == 1)
-                {
-                    int hours = atoi(lv_textarea_get_text(objects.hour_display));
-                    int mins = atoi(lv_textarea_get_text(objects.minute_display));
+                int hours = atoi(lv_textarea_get_text(objects.hour_display));
+                int mins = atoi(lv_textarea_get_text(objects.minute_display));
 
-                    if (mins > 60) mins = 60;
-                    if (hours == 0 && mins == 0) 
-                    {
-                        return;
-                    }
-                    countdoen(hours, mins);
-
-                    input_step = 0;
-                    current_ta = objects.hour_display;
-                    lv_scr_load(objects.main);
+                if (mins > 60) mins = 60;
+                if (hours == 0 && mins == 0) 
+                {
+                    return;
                 }
+                countdoen(hours, mins);
+
+                input_step = 0;
+                current_ta = objects.hour_display;
+                lv_scr_load(objects.main);
             }
             else
             {

@@ -231,7 +231,10 @@ void setup()
     lv_obj_clear_flag(objects.timer_arc, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_add_event_cb(objects.powerbt, event_handler, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(objects.timerbt, event_handler, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(objects.mainbt, event_handler, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(objects.timer_numval, event_handler, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(objects.hour_display, event_handler, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(objects.minute_display, event_handler, LV_EVENT_CLICKED, NULL);
 
     Serial.println("Setup done");
   }
