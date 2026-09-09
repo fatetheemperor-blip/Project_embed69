@@ -82,6 +82,7 @@ static uint32_t bufSize;
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t *disp_draw_buf;
 static lv_disp_drv_t disp_drv;
+#define battery_adc 34
 
 // static void event_handler(lv_event_t *e)
 // {
@@ -143,6 +144,7 @@ void setup()
 {
   // Serial.setDebugOutput(true);
   // while(!Serial);
+  pinMode(battery_adc,INPUT);
   Serial.println("Arduino_GFX LVGL Widgets example");
 
 #ifdef GFX_EXTRA_PRE_INIT
@@ -235,6 +237,7 @@ void setup()
     lv_obj_add_event_cb(objects.timer_numval, event_handler, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(objects.hour_display, event_handler, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(objects.minute_display, event_handler, LV_EVENT_CLICKED, NULL);
+    lv_timer_create(battery_status, 500, NULL);
 
     Serial.println("Setup done");
   }

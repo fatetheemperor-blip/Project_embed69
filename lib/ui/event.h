@@ -18,6 +18,7 @@ extern "C"
     void event_handler(lv_event_t*e);
     void timer_setup(lv_timer_t *timer);
     void countdoen(int hours, int minutes);
+    void battery_status(lv_timer_t *timer);
 
 #ifdef __cplusplus
 }

@@ -196,4 +196,56 @@ void countdoen(int hours, int minutes)
     }
 }
 
+void battery_status(lv_timer_t *timer)
+{
+    const float BATTERY_MAX_VOLT = 3.3; 
+    const float BATTERY_MIN_VOLT = 0.0; 
+
+    float filtered_voltage = 0.0;
+    bool is_first_read = true;
+
+    int raw_sum = 0;
+    for (int i = 0; i < 20; i++)
+    {
+        raw_sum += analogRead(34);
+        delayMicroseconds(20);
+    }
+    float raw_avg = raw_sum / 20.0;
+    float instant_voltage = (raw_avg / 4095.0) * 3.3;
+
+    if (is_first_read)
+    {
+        filtered_voltage = instant_voltage;
+        is_first_read = false;
+    }
+    else
+    {
+        filtered_voltage = (filtered_voltage * 0.90) + (instant_voltage * 0.10);
+    }
+
+    int percent = (int)(((filtered_voltage - BATTERY_MIN_VOLT) / (BATTERY_MAX_VOLT - BATTERY_MIN_VOLT)) * 100.0);
+    if (percent > 100) percent = 100;
+    if (percent < 0) percent = 0;
+
+    if (objects.battery_val != NULL)
+    {
+        static char buf[16];
+        snprintf(buf, sizeof(buf), "%d%%", percent);
+        lv_label_set_text(objects.battery_val, buf);
+    }
+
+    if (objects.battery_bar != NULL)
+    {
+        lv_bar_set_value(objects.battery_bar, percent, LV_ANIM_ON);
+
+        if (percent <= 20)
+        {
+            lv_obj_set_style_bg_color(objects.battery_bar, lv_color_hex(0xFF3B30), LV_PART_INDICATOR);
+        }
+        else
+        {
+            lv_obj_set_style_bg_color(objects.battery_bar, lv_color_hex(0x34C759), LV_PART_INDICATOR);
+        }
+    }
+}
 
