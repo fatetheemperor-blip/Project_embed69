@@ -27,10 +27,10 @@
 
 // Please fill below values from Arduino_GFX Example - TouchCalibration
 bool touch_swap_xy = true;
-int16_t touch_map_x1 = 3983;
-int16_t touch_map_x2 = 172;
-int16_t touch_map_y1 = 163;
-int16_t touch_map_y2 = 3923;
+int16_t touch_map_x1 = 172;
+int16_t touch_map_x2 = 3983;
+int16_t touch_map_y1 = 3923;
+int16_t touch_map_y2 = 163;
 
 int16_t touch_max_x = 320, touch_max_y = 240;
 int16_t touch_raw_x = 0, touch_raw_y = 0;

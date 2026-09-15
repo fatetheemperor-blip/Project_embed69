@@ -57,24 +57,24 @@ void create_screen_main() {
         }
         {
             // battery_bar
-            lv_obj_t *obj = lv_bar_create(parent_obj);
-            objects.battery_bar = obj;
-            lv_obj_set_pos(obj, 241, 11);
-            lv_obj_set_size(obj, 30, 15);
-            lv_bar_set_value(obj, 25, LV_ANIM_OFF);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0xaaaaaa), LV_PART_MAIN | LV_STATE_DEFAULT);
-            lv_obj_set_style_bg_opa(obj, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-            lv_obj_set_style_bg_color(obj, lv_color_hex(0x31d448), LV_PART_INDICATOR | LV_STATE_DEFAULT);
-            lv_obj_set_style_bg_opa(obj, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+            // lv_obj_t *obj = lv_bar_create(parent_obj);
+            // objects.battery_bar = obj;
+            // lv_obj_set_pos(obj, 241, 11);
+            // lv_obj_set_size(obj, 30, 15);
+            // lv_bar_set_value(obj, 25, LV_ANIM_OFF);
+            // lv_obj_set_style_bg_color(obj, lv_color_hex(0xaaaaaa), LV_PART_MAIN | LV_STATE_DEFAULT);
+            // lv_obj_set_style_bg_opa(obj, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+            // lv_obj_set_style_bg_color(obj, lv_color_hex(0x31d448), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+            // lv_obj_set_style_bg_opa(obj, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
         }
         {
             // battery_val
-            lv_obj_t *obj = lv_label_create(parent_obj);
-            objects.battery_val = obj;
-            lv_obj_set_pos(obj, 279, 11);
-            lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-            lv_obj_set_style_text_font(obj, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
-            lv_label_set_text_static(obj, "0%");
+            // lv_obj_t *obj = lv_label_create(parent_obj);
+            // objects.battery_val = obj;
+            // lv_obj_set_pos(obj, 279, 11);
+            // lv_obj_set_size(obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+            // lv_obj_set_style_text_font(obj, &lv_font_montserrat_12, LV_PART_MAIN | LV_STATE_DEFAULT);
+            // lv_label_set_text_static(obj, "0%");
         }
         {
             // powerbt

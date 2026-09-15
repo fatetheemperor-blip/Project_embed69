@@ -26,6 +26,7 @@
  ******************************************************************************/
 #include "ui.h"
 #include "event.h"
+#include <ESP32Servo.h>
 // #define DIRECT_MODE // Uncomment to enable full frame buffer
 
 /*******************************************************************************
@@ -61,7 +62,7 @@ Arduino_GFX *gfx = create_default_Arduino_GFX();
 #define GFX_BL 32
 Arduino_DataBus *bus = new Arduino_ESP32SPI(2 /* cs */, 15 /* sck */, 18 /* d0 */, 23 /* d1 */, GFX_NOT_DEFINED);
 // Arduino_GFX *g = new Arduino_NV3041A(bus, GFX_NOT_DEFINED /* RST */, 0 /* rotation */, true /* IPS */);
-Arduino_GFX *gfx = new Arduino_ILI9342(bus,4,0,false);
+Arduino_GFX *gfx = new Arduino_ILI9342(bus,4,2,false);
 #define CANVAS
 
 
@@ -82,8 +83,20 @@ static uint32_t bufSize;
 static lv_disp_draw_buf_t draw_buf;
 static lv_color_t *disp_draw_buf;
 static lv_disp_drv_t disp_drv;
-#define battery_adc 34
 
+#define in1 17  
+#define in2 16
+#define in3 25
+#define in4 33
+#define in5 21
+#define in6 14
+
+void TaskObstacle(void *pvParameters) {
+    for (;;) {
+        barrier_obj();
+        vTaskDelay(pdMS_TO_TICKS(30)); 
+    }
+}
 // static void event_handler(lv_event_t *e)
 // {
 //   lv_event_code_t code = lv_event_get_code(e);
@@ -144,7 +157,18 @@ void setup()
 {
   // Serial.setDebugOutput(true);
   // while(!Serial);
-  pinMode(battery_adc,INPUT);
+ 
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(in5, OUTPUT);
+  pinMode(in6, OUTPUT);
+  pinMode(22, OUTPUT); 
+  pinMode(35, INPUT);
+  init_servo();
+  
+  motor_stop(); 
   Serial.println("Arduino_GFX LVGL Widgets example");
 
 #ifdef GFX_EXTRA_PRE_INIT
@@ -230,6 +254,7 @@ void setup()
 //    //delay(1000);
     
     ui_init();
+
     lv_obj_clear_flag(objects.timer_arc, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_add_event_cb(objects.powerbt, event_handler, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(objects.timerbt, event_handler, LV_EVENT_CLICKED, NULL);
@@ -237,7 +262,8 @@ void setup()
     lv_obj_add_event_cb(objects.timer_numval, event_handler, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(objects.hour_display, event_handler, LV_EVENT_CLICKED, NULL);
     lv_obj_add_event_cb(objects.minute_display, event_handler, LV_EVENT_CLICKED, NULL);
-    lv_timer_create(battery_status, 500, NULL);
+    // lv_timer_create(battery_status, 500, NULL);
+    xTaskCreatePinnedToCore(TaskObstacle, "ObstacleTask", 4096, NULL, 1, NULL, 0);
 
     Serial.println("Setup done");
   }
